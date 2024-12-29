@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Photography Portfolio</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Explore Timala Photography - Capturing moments with stunning visuals. Browse our gallery of nature, urban, and portrait photography.">
+    <meta name="keywords" content="Photography, Nature Photography, Urban Photography, Portraits">
+    <meta name="author" content="Sameer Maharjan">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #121212;
+            color: white;
+            overflow-x: hidden;
+        }
+
+        header {
+            background-color: rgba(51, 51, 51, 0.9);
+            color: white;
+            text-align: center;
+            padding: 40px;
+            animation: fadeInDown 1.5s;
+        }
+
+        section {
+            padding: 20px;
+            animation: fadeIn 1s;
+        }
+
+        .gallery img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            opacity: 0;
+            transform: scale(0.95);
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+
+        .gallery img.lazyloaded {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: rgba(51, 51, 51, 0.9);
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1 class="animate__animated animate__fadeInDown">Timala Photography</h1>
+    <p class="animate__animated animate__fadeInUp">Capturing moments one frame at a time</p>
+</header>
+
+<section id="gallery">
+    <div class="container">
+        <div class="row filter-bar">
+            <div class="col-md-12">
+                <button class="btn btn-primary filter-btn" data-category="all">All</button>
+                <button class="btn btn-secondary filter-btn" data-category="nature">Nature</button>
+                <button class="btn btn-secondary filter-btn" data-category="urban">Urban</button>
+                <button class="btn btn-secondary filter-btn" data-category="portraits">Portraits</button>
+            </div>
+        </div>
+
+        <div class="row search-bar">
+            <div class="col-md-12">
+                <input type="text" id="search-input" class="form-control" placeholder="Search images...">
+            </div>
+        </div>
+
+        <div class="gallery" id="gallery-container">
+            <img src="IMG_1.jpeg" alt="Nature 1" data-category="nature" loading="lazy">
+            <img src="IMG_2.jpeg" alt="Urban 1" data-category="urban" loading="lazy">
+            <img src="IMG_3.jpeg" alt="Portrait 1" data-category="portraits" loading="lazy">
+            <img src="IMG_4.jpeg" alt="Nature 2" data-category="nature" loading="lazy">
+            <img src="IMG_5.jpeg" alt="Urban 2" data-category="urban" loading="lazy">
+            <img src="IMG_6.jpeg" alt="Portrait 2" data-category="portraits" loading="lazy">
+        </div>
+    </div>
+</section>
+
+<footer>
+    <p>&copy; 2024 Timala Photography. All rights reserved.</p>
+</footer>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const images = document.querySelectorAll("img[loading='lazy']");
+
+        const lazyLoad = target => {
+            const io = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        img.classList.add("lazyloaded");
+                        observer.disconnect();
+                    }
+                });
+            });
+
+            io.observe(target);
+        };
+
+        images.forEach(lazyLoad);
+    });
+</script>
+
+</body>
+</html>
+
